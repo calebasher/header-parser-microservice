@@ -11,8 +11,8 @@ app.listen(port, function(){
 
 app.get('/', function(req, res) {
      res.json({
-      ipaddress: req.connection.remoteAddress.slice(-12),
-      language: req.acceptedLanguages[0],
-      software: os.release()
+      ipaddress: req.headers['x-forwarded-for'],
+      language: req.headers["accept-language"].split(',')[0],
+      software: req.headers['user-agent'].split(') ')[0].split(' (')[1]
     });
 });
